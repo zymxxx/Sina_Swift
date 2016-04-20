@@ -33,6 +33,8 @@ class HttpManager{
         }
     }
     
+    
+    
     //获取当前登录用户及其所关注（授权）用户的最新微博
     class func getStatus_friend_timeline(since_id: Int, max_id: Int, count: Int, feature: Int, callback: [StatusModel] -> Void) -> Void{
         

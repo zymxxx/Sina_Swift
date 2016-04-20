@@ -15,18 +15,19 @@ class HomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.homeTable.backgroundColor = UIColor.blackColor()
         self.homeTable.mj_header = THCircleRefreshHeader(refreshingTarget: self, refreshingAction: "refreshHandler")
         self.homeTable.registerNib(UINib(nibName: "StatusCell", bundle: nil), forCellReuseIdentifier: NSStringFromClass(StatusCell.self))
         self.homeTable.estimatedRowHeight = 88.0
         self.homeTable.rowHeight = UITableViewAutomaticDimension
         self.homeTable.dataSource = self
         self.homeTable.delegate = self
+        self.homeTable.mj_header.beginRefreshing()
         
     }
+    
 
     func refreshHandler() {
-        HttpManager.getStatus_friend_timeline(0, max_id: 0, count: 100, feature: 0) { result in
+        HttpManager.getStatus_friend_timeline(0, max_id: 0, count: 200, feature: 0) { result in
             self.dataSource = result
             self.homeTable.mj_header.endRefreshing()
             self.homeTable.reloadData()
@@ -45,7 +46,7 @@ class HomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         return cell
     }
     
-//    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-//        return 180
-//    }
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 90
+    }
 }
